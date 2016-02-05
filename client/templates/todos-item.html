@@ -1,0 +1,11 @@
+<template name="todosItem">
+  <div class="list-item {{checkedClass}} {{editingClass}}">
+  	<span class="pomodate">{{formatDate createdAt}}</span>
+    <input type="text" value="{{text}}" placeholder="Task name">
+    <label class="checkbox {{checked}}">
+      <input type="checkbox" checked="{{checked}}" name="checked">
+      <span class="checkbox-custom start start-default">Start</span>
+    </label>
+    <a class="js-delete-item delete-item" href="#"><span class="icon-trash"></span></a>
+  </div>
+</template>

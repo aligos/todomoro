@@ -1,0 +1,90 @@
+@import 'util/reset.import.less';
+
+// Mixins & utilities
+@import 'util/helpers.import.less';
+@import 'util/lesshat.import.less';
+@import 'util/fontface.import.less';
+@import 'util/text.import.less';
+@import 'util/typography.import.less';
+@import 'util/variables.import.less';
+
+// Global namespace
+@import 'globals/base.import.less';
+@import 'globals/button.import.less';
+@import 'globals/form.import.less';
+@import 'globals/icon.import.less';
+@import 'globals/layout.import.less';
+@import 'globals/link.import.less';
+@import 'globals/menu.import.less';
+@import 'globals/nav.import.less';
+
+// Global templates
+@import 'globals/list-items.import.less';
+@import 'globals/message.import.less';
+@import 'globals/notification.import.less';
+
+// Templates
+@import '../templates/lists-show.import.less';
+@import '../templates/auth.import.less';
+@import '../templates/app-not-found.import.less';
+@import '../templates/loading.import.less';
+
+.pomodoro-icon {
+	font-size: 40px;
+    color: #FFF;
+}
+.pomodate {
+	line-height: 3rem;
+    text-align: center;
+    margin: 0 10px 0 10px;
+}
+
+.pomodoro-checkbox {
+	line-height: 3rem;
+    text-align: center;
+}
+
+.pomodoro-page {
+	top: 0!important;
+}
+
+.render-chart {
+	font-size: 40px;
+    color: #FFF;
+    line-height: 3rem;
+    text-align: center;
+}
+
+.title-reload {
+	text-align: center;
+}
+
+.start-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.start {
+    display: inline-block;
+    padding: 3px 6px;
+    font-size: 10px;
+    margin-bottom: 0;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.grapik {
+    margin: 10px;
+}

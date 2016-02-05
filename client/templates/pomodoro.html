@@ -1,0 +1,23 @@
+<template name="pomodoro">
+  <div class="page not-found">
+    <div class="content-scrollable">
+      <div class="wrapper-message">
+        <h1>{{text}}</h1>
+        <div class="title-pomodoro">{{currentPomodoroTime}}</div>
+        <div class="pomodoro-buttons row">
+            <div class="col-sm-4 form-group">
+                <span class="pomodoro-icon pomodoro-start icon-play {{#if pomodoroTimer}} pomodoro-icon icon-stop pomodoro-stop {{/if}}"></span>
+                <span class="pomodoro-icon icon-reset pomodoro-reset"></span>
+            </div>
+        </div>
+        <div class="pomodoro-buttons pomodoro-buttons-types row">
+            <div class="col-sm-4 form-group">
+                <button type="button" class="btn btn-block btn btn-danger pomodoro-change-type {{#if timerTypeCompare 'POMODORO_TIME' }} disabled {{/if}}" data-type="POMODORO_TIME">Pomodoro</button>
+                <button type="button" class="btn btn-block btn btn-default pomodoro-change-type {{#if timerTypeCompare 'SHORT_BREAK_TIME' }} disabled {{/if}}" data-type="SHORT_BREAK_TIME">Short Break</button>
+                <button type="button" class="btn btn-block btn btn-default pomodoro-change-type {{#if timerTypeCompare 'LONG_BREAK_TIME' }} disabled {{/if}}" data-type="LONG_BREAK_TIME">Long Break</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
