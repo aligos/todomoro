@@ -1,4 +1,5 @@
 var ERRORS_KEY = 'joinErrors';
+Meteor.subscribe('userData');
 
 Template.signup.onCreated(function() {
   Session.set(ERRORS_KEY, {});
