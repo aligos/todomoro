@@ -1,8 +1,0 @@
-(function(){SECONDS_IN_MINUTE = 60;
-POMODORO_TIME = 25 * SECONDS_IN_MINUTE; //in seconds
-SHORT_BREAK_TIME = 5 * SECONDS_IN_MINUTE;
-LONG_BREAK_TIME = 15 * SECONDS_IN_MINUTE;
-MILLISECONDS_IN_SECONDS = 1000;
-}).call(this);
-
-//# sourceMappingURL=constants.js.map
