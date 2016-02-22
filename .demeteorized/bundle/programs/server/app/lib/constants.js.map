@@ -1,0 +1,1 @@
+{"version":3,"sources":["meteor://💻app/lib/constants.js"],"names":[],"mappings":"yBAAA;AACA;AACA;AACA;AACA,+B","file":"/lib/constants.js","sourcesContent":["SECONDS_IN_MINUTE = 60;\nPOMODORO_TIME = 25 * SECONDS_IN_MINUTE; //in seconds\nSHORT_BREAK_TIME = 5 * SECONDS_IN_MINUTE;\nLONG_BREAK_TIME = 15 * SECONDS_IN_MINUTE;\nMILLISECONDS_IN_SECONDS = 1000;"]}
