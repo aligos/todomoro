@@ -97,11 +97,13 @@ Template.chart.onRendered(function() {
 
       // Count the numbers of todos per month
       listData.data = _.pluck(list, 'bulan');
+      console.log(listData);
       listData.data = _.countBy(listData.data, function(bulan) {
         return bulan
       });
       // Add default values to all of the month - just in case there is no todo
       // so that the chart is still able to display everything correctly
+      console.log(listData);
       listData.data = _.defaults(listData.data, {
         Jan: 0,
         Feb: 0,
@@ -117,6 +119,7 @@ Template.chart.onRendered(function() {
         Dec: 0
       });
       listData.data = _.toArray(listData.data);
+      console.log(listData);
       chartData.push(listData);
     });
 

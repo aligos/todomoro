@@ -41,8 +41,14 @@ Template.todosItem.events({
   // handle mousedown otherwise the blur handler above will swallow the click
   // on iOS, we still require the click event so handle both
   'mousedown .js-delete-item, click .js-delete-item': function() {
-    Todos.remove(this._id);
-    if (! this.checked)
-      Lists.update(this.listId, {$inc: {incompleteCount: -1}});
+    var message = "Are you sure you want to delete the todo?";
+    if (confirm(message)) {
+      Todos.remove(this._id);
+      if (! this.checked)
+        Lists.update(this.listId, {$inc: {incompleteCount: -1}});
+      return true;
+    } else {
+      return false;
+    }
   }
 });

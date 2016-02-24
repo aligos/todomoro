@@ -163,12 +163,14 @@ Template.listsShow.events({
     if (! $input.val())
       return;
     var bulan = moment().format('MMM');
+    var currentUser  = Meteor.userId();
 
     Todos.insert({
       listId: this._id,
       text: $input.val(),
       checked: false,
       createdAt: new Date(),
+      createdBy: currentUser,
       bulan: bulan
     });
     Lists.update(this._id, {$inc: {incompleteCount: 1}});

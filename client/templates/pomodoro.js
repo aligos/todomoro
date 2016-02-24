@@ -43,6 +43,21 @@ var resetPomodoro = function() {
 		document.title = document.oldTitle;
 	}
 }
+// var stopPomodoro = function( e ) {
+//   var timerPomo = POMODORO_TIME.toTimerFormat();
+//   Session.set( 'timerType', timerPomo );
+//   Session.set( 'totalTime', timerPomo );
+//   Session.set( 'currentPomodoroTime', timerPomo );
+//   clearInterval( Session.get( 'pomodoroTimer' ) );
+//   Session.set( 'pomodoroTimer', false )
+//   Todos.update(this._id, {$set: {checked: true}});
+//   Lists.update(this.listId, {$inc: {incompleteCount: -1}});
+// 	// // Session.set( 'pomodoroTimer', false );
+// 	// Session.set( 'timerType', timerTime );
+// 	// //Session.set( 'currentPomodoroTime', Session.get( 'timerType' ) );
+// 	//document.title = "Todos from " + listTitle;
+// 	//Router.go('listsShow', Lists.findOne(this.listId));
+// }
 var getTimerType = function() {
 	var timerType = {};
 	switch ( Session.get( 'timerType' ).fromTimerFormat() ) {
@@ -63,35 +78,87 @@ var getTimerType = function() {
 }
 Template.pomodoro.events({
 	'click .pomodoro-start': function( e ) {
+		var checked = $(event.target).is(':checked');
+		var listTitle = Lists.findOne(this.listId).name;
 		if ( ! Session.get( 'pomodoroTimer' ) ) {
 			Session.set( 'pomodoroTimer', setInterval( function() {
 				currentPomodoroTime = Session.get( 'currentPomodoroTime' ).fromTimerFormat();
 				if ( currentPomodoroTime == 0 ) {
-					resetPomodoro();
-					var timerType = getTimerType();
-					Session.set( 'alertMsg', ( timerType.name == 'Pomodoros' ? '<strong>Well done!</strong> ' : '' ) + '1 ' + timerType.name + ' Finished!' );
+					// Session.set( 'pomodoroTimer', setInterval( function() {
+					// 	currentPomodoroTime = SHORT_BREAK_TIME.fromTimerFormat();
+					// // 	if ( currentPomodoroTime == 0 ) {
+					// // // resetPomodoro();
+					// // // var timerType = getTimerType();
+					// // // Session.set( 'alertMsg', ( timerType.name == 'Pomodoros' ? '<strong>Well done!</strong> ' : '' ) + '1 ' + timerType.name + ' Finished!' );
+					// setTimeout( function() {
+					//  	alert("Todomoro Finished!, Next is Break Time");
+					// });
 					var timerTime = SHORT_BREAK_TIME.toTimerFormat();
 					Session.set( 'timerType', timerTime );
 					Session.set( 'totalTime', timerTime );
 					Session.set( 'currentPomodoroTime', timerTime );
-					setTimeout( function() {
-						Session.set( 'alertMsg', null );
-					}, 3 * MILLISECONDS_IN_SECONDS);
+
+					// // // if ( cpo == 0 ) {
+					// //  		stopPomodoro();
+					// //  	} else {
+					// //  		Session.set( 'currentPomodoroTime', ( currentPomodoroTime - 1 ).toTimerFormat() );
+					// //  		document.title = getTimerType().name + ' ' + Session.get( 'currentPomodoroTime' );;
+					// //  	}
+
+					// }, 1 * MILLISECONDS_IN_SECONDS) );
+					// }
+					// if ( Session.get( 'pomodoroTimer' ) ) {
+					// 	Session.set( 'pomodoroTimer', setInterval( function() {
+					// 		currentPomodoroTime = Session.get( 'currentPomodoroTime' ).fromTimerFormat();
+					// 		if ( currentPomodoroTime == 0 ) {
+					// 			stopPomodoro();
+					// 		} else {
+					// 			Session.set( 'currentPomodoroTime', ( currentPomodoroTime - 1 ).toTimerFormat() );
+					// 			document.title = getTimerType().name + ' ' + Session.get( 'currentPomodoroTime' );;
+					// 		}
+
+					// 	}, 1 * MILLISECONDS_IN_SECONDS) );
+					// }
+					
+					//stopPomodoro();
+    	// 		Todos.update(this._id, {$set: {checked: true}});
+    	// 		Lists.update(this.listId, {$inc: {incompleteCount: -1}});
+					// clearInterval( Session.get( 'pomodoroTimer' ) );
+					// Session.set( 'pomodoroTimer', false );
+					// Session.set( 'currentPomodoroTime', Session.get( 'timerType' ) );
+					// resetPomodoro();
+					// var listTitle = Lists.findOne(this.listId).name;
+					// document.title = "Todos from " + listTitle;
+					// Router.go('listsShow', Lists.findOne(this.listId));
+					// setTimeout( function() {
+					// 	Session.set( 'alertMsg', null );
+					// }, 3 * MILLISECONDS_IN_SECONDS);					
 				} else {
 					Session.set( 'currentPomodoroTime', ( currentPomodoroTime - 1 ).toTimerFormat() );
 					document.title = getTimerType().name + ' ' + Session.get( 'currentPomodoroTime' );;
 				}
 
 			}, 1 * MILLISECONDS_IN_SECONDS) );
+		} else {
+			var listTitle = Lists.findOne(this.listId).name;
+			document.title = "Todos from " + listTitle;
+			Router.go('listsShow', Lists.findOne(this.listId));
 		}
+		//resetPomodoro();
 	},
 	'click .pomodoro-stop': function( e ) {
-    	var checked = $(event.target).is(':checked');
-    	Todos.update(this._id, {$set: {checked: true}});
-    	Lists.update(this.listId, {$inc: {incompleteCount: -1}});
-		clearInterval( Session.get( 'pomodoroTimer' ) );
-		Session.set( 'pomodoroTimer', false );
-		Session.set( 'currentPomodoroTime', Session.get( 'timerType' ) );
+    var checked = $(event.target).is(':checked');
+    var timerPomo = POMODORO_TIME.toTimerFormat();
+    Session.set( 'timerType', timerPomo );
+    Session.set( 'totalTime', timerPomo );
+    Session.set( 'currentPomodoroTime', timerPomo );
+    clearInterval( Session.get( 'pomodoroTimer' ) );
+    Session.set( 'pomodoroTimer', false )
+    Todos.update(this._id, {$set: {checked: true}});
+    Lists.update(this.listId, {$inc: {incompleteCount: -1}});
+		// // Session.set( 'pomodoroTimer', false );
+		// Session.set( 'timerType', timerTime );
+		// //Session.set( 'currentPomodoroTime', Session.get( 'timerType' ) );
 		var listTitle = Lists.findOne(this.listId).name;
 		document.title = "Todos from " + listTitle;
 		Router.go('listsShow', Lists.findOne(this.listId));
