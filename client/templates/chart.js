@@ -104,21 +104,48 @@ Template.chart.onRendered(function() {
       // Add default values to all of the month - just in case there is no todo
       // so that the chart is still able to display everything correctly
       console.log(listData);
-      listData.data = _.defaults(listData.data, {
-        Jan: 0,
-        Feb: 0,
-        Mar: 0,
-        Apr: 0,
-        May: 0,
-        Jun: 0,
-        Jul: 0,
-        Aug: 0,
-        Sep: 0,
-        Oct: 0,
-        Nov: 0,
-        Dec: 0
-      });
-      listData.data = _.toArray(listData.data);
+      // listData.data = _.defaults(listData.data, {
+      //   Jan: 0,
+      //   Feb: 0,
+      //   Mar: 0,
+      //   Apr: 0,
+      //   May: 0,
+      //   Jun: 0,
+      //   Jul: 0,
+      //   Aug: 0,
+      //   Sep: 0,
+      //   Oct: 0,
+      //   Nov: 0,
+      //   Dec: 0
+      // });
+      // listData.data = _.toArray(listData.data);
+      var monthLookup = {
+              Jan: 0,
+              Feb: 1,
+              Mar: 2,
+              Apr: 3,
+              May: 4,
+              Jun: 5,
+              Jul: 6,
+              Aug: 7,
+              Sep: 8,
+              Oct: 9,
+              Nov: 10,
+              Dec: 11
+      };
+      // This is the data used to display the values in the chart
+      // Each 0 represents a month
+      var monthArray = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+      // Iterate over listData.data to assign the values to the correct "month-slot"
+      for(var key in listData.data) {
+        if(monthLookup[key]) {
+          monthArray[monthLookup[key]] = listData.data[key];
+        }
+      }
+
+      // Reassign the array
+      listData.data = monthArray;
       console.log(listData);
       chartData.push(listData);
     });
