@@ -68,7 +68,8 @@ function builtColumn(chartData) {
  */
 Template.chart.onRendered(function() {
   Tracker.autorun(function() {
-    var data = Todos.find().fetch();
+    var currentUser = Meteor.userId();
+    var data = Todos.find({createdBy: currentUser}).fetch();
 
     // if there is no data, abort!
     if (!data || data === []) return;
@@ -91,8 +92,8 @@ Template.chart.onRendered(function() {
       var listSource = Lists.findOne(list[0].listId)
       if (listSource) {
         listData.name = listSource.name;
-      } else {
-        listData.name = "unknown list"
+      // } else {
+      //   listData.name = "unknown list"
       }
 
       // Count the numbers of todos per month
