@@ -73,32 +73,46 @@ var breakTime = function (e) {
 	Session.set( 'currentPomodoroTime', timerTime);
 }
 var stopTime = function( e ) {
-	var listId = Todos.findOne().listId;
-	var _id = Todos.findOne()._id;
+	// var listId = Todos.findOne().this.listId;
+	// var _id = Todos.findOne().this._id;
   var timerPomo = POMODORO_TIME.toTimerFormat();
   Session.set( 'timerType', timerPomo );
   Session.set( 'totalTime', timerPomo );
   Session.set( 'currentPomodoroTime', timerPomo );
   clearInterval( Session.get( 'pomodoroTimer' ) );
   Session.set( 'pomodoroTimer', false );
-  Todos.update(_id, {$set: {checked: true}});
-  Lists.update(listId, {$inc: {incompleteCount: -1}});
-  var listTitle = Lists.findOne(listId).name;
+  Todos.update(this._id, {$set: {checked: true}});
+  Lists.update(this.listId, {$inc: {incompleteCount: -1}});
+  var listTitle = Lists.findOne(this.listId).name;
   document.title = "Todos from " + listTitle;
-  Router.go('listsShow', Lists.findOne(listId));
+  Router.go('listsShow', Lists.findOne(this.listId));
 }
 Template.pomodoro.events({
 	'click .pomodoro-start': function( e ) {
+		var _id = Todos.findOne(this._id)._id;
+		//console.log(_id);
+		var listId = Todos.findOne(this._id).listId;
+		//console.log(listId);
 		var checked = $(event.target).is(':checked');
 		if ( ! Session.get( 'pomodoroTimer' ) ) {
 			Session.set( 'pomodoroTimer', setInterval( function() {
 				var CBT = Session.get( 'totalTime' ).fromTimerFormat();
-				console.log(CBT);
+				//console.log(CBT);
 				currentPomodoroTime = Session.get( 'currentPomodoroTime' ).fromTimerFormat();
 				if ( currentPomodoroTime == 0 ) {
 					breakTime();
 					if ( CBT == 300 && currentPomodoroTime == 0 ) {
-						stopTime();		
+						var timerPomo = POMODORO_TIME.toTimerFormat();
+						Session.set( 'timerType', timerPomo );
+						Session.set( 'totalTime', timerPomo );
+						Session.set( 'currentPomodoroTime', timerPomo );
+						clearInterval( Session.get( 'pomodoroTimer' ) );
+						Session.set( 'pomodoroTimer', false );
+						Todos.update(_id, {$set: {checked: true}});
+						Lists.update(listId, {$inc: {incompleteCount: -1}});
+						var listTitle = Lists.findOne(listId).name;
+						document.title = "Todos from " + listTitle;
+						Router.go('listsShow', Lists.findOne(listId));	
 					}
 				} else {
 					Session.set( 'currentPomodoroTime', ( currentPomodoroTime - 1 ).toTimerFormat() );

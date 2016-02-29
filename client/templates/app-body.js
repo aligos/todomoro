@@ -129,7 +129,7 @@ Template.appBody.events({
     Router.go('listsShow', list);
   },
   'click .chart-btn': function() {
-    Router.go('listsChart');
+    Router.go('chart');
   }
 });
 
