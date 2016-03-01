@@ -120,6 +120,17 @@ Template.pomodoro.events({
 				}
 			}, 1 * MILLISECONDS_IN_SECONDS) );
 		}
+		window.onbeforeunload = function (e) {
+		    e = e || window.event;
+
+		    // For IE and Firefox prior to version 4
+		    if (e) {
+		        e.returnValue = 'If you leave now, your pomodoro will stop and cancel.';
+		    }
+
+		    // For Safari
+		    return 'If you leave now, your pomodoro will stop and cancel.';
+		};
 	},
 	'click .pomodoro-stop': function( e ) {
     var checked = $(event.target).is(':checked');
